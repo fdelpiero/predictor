@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colombia World Cup 2026 Championship Simulator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070a12;--panel:#0e1622;--panel2:#0b121c;--line:#1f2c3f;--line2:#2a3a52;--ink:#eaf1fb;--muted:#7e93ad;--green:#16e08a;--amber:#ffc23d;--red:#ff5d6c;--blue:#7fb2ff;--gold:#ffd34d}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Manrope,system-ui,sans-serif;background:radial-gradient(900px 500px at 80% -10%,#102a4022,transparent),radial-gradient(700px 500px at 0 0,#0c3a2622,transparent),var(--bg);color:var(--ink);line-height:1.45;min-height:100vh}.wrap{max-width:1150px;margin:0 auto;padding:20px 14px 60px}.hero{border:1px solid var(--line);border-radius:20px;background:linear-gradient(160deg,#0f1a2a,#0a0f18 70%);padding:22px;overflow:hidden;position:relative}.hero:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,#ffffff05 0 2px,transparent 2px 64px);pointer-events:none}h1{font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;font-size:clamp(28px,6vw,52px);line-height:.95;position:relative}.green{color:var(--green)}.gold{color:var(--gold)}.sub{color:var(--muted);font-weight:700;font-size:13px;margin-top:8px;position:relative}.pillrow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.pill{border:1px solid var(--line2);background:#0a1320;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:800;color:var(--muted)}.pill.good{color:var(--green);border-color:#2e5a44;background:#0c3a2722}.pill.warn{color:var(--amber);border-color:#5a4a2e;background:#3a2c0c22}.pill.gold{color:var(--gold);border-color:#5a4a1e;background:#3a2c0c22}
+.grid{display:grid;grid-template-columns:1fr 1.15fr;gap:14px;margin-top:16px}.card{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:16px}.card h2{font-family:Anton,sans-serif;font-weight:400;letter-spacing:.6px;text-transform:uppercase;font-size:22px;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:13px}th{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);text-align:center;padding:8px 4px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}td{padding:9px 4px;border-bottom:1px solid #16212f;text-align:center;font-weight:700}.team{display:flex;align-items:center;gap:8px}.flag{font-size:18px}.pts{font-family:'DM Mono',monospace;color:var(--green)}
+.note{font-size:12px;color:var(--muted);margin-top:12px}.note b{color:var(--ink)}
+.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.mini .box{border:1px solid var(--line);background:#0b121c;border-radius:12px;padding:10px}.box .l{font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:900;letter-spacing:.5px}.box .v{font-family:Anton,sans-serif;font-size:22px;color:var(--green);margin-top:2px}.box.win .v{color:var(--gold)}
+.path{display:grid;gap:10px}.round{display:grid;grid-template-columns:115px 1fr;gap:10px;align-items:stretch}.rlabel{background:#0a1320;border:1px solid var(--line);border-radius:12px;padding:10px;font-family:Anton,sans-serif;text-transform:uppercase;letter-spacing:.5px;color:var(--green);font-size:14px;display:flex;flex-direction:column;justify-content:center}.rlabel .date{font-family:Manrope,sans-serif;font-size:9px;color:var(--muted);font-weight:800;margin-top:3px;text-transform:none;letter-spacing:0}
+.match{border:1px solid var(--line);background:var(--panel2);border-radius:12px;padding:11px}.match.locked{border-color:#2e5a44;background:#0c1f1722}.match .small{font-size:10px;color:var(--muted);font-weight:900;letter-spacing:.6px;text-transform:uppercase;margin-bottom:5px;display:flex;justify-content:space-between;gap:6px}.match .venue{color:var(--blue);font-weight:700}.match .teams{font-weight:900;font-size:15px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}.vs{color:var(--muted);font-size:12px;margin:0 6px}.col{color:var(--green)}.confirmed{display:inline-flex;align-items:center;gap:3px;font-size:9px;background:#0c3a2744;color:var(--green);border:1px solid #2e5a44;border-radius:999px;padding:2px 7px;font-weight:900;letter-spacing:.4px;text-transform:uppercase;margin-left:6px}
+select{width:100%;margin-top:8px;border:1px solid var(--line2);background:#0c1521;color:var(--ink);border-radius:10px;padding:10px;font-family:inherit;font-weight:800}
+.resultbox{margin-top:12px;border:1px solid #2e5a44;background:#0c3a2722;border-radius:14px;padding:12px}.resultbox b{color:var(--green)}
+.scenario{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.btn{cursor:pointer;border:1px solid var(--line2);background:#0c1521;color:var(--ink);border-radius:12px;padding:11px;font-weight:900;font-size:12px;letter-spacing:.3px;text-transform:uppercase}.btn.active{background:var(--green);border-color:var(--green);color:#06281a}.scoreline{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}.scoreline input{width:52px;text-align:center;border:1px solid var(--line2);background:#0a1018;color:var(--ink);border-radius:10px;padding:9px 6px;font-family:'DM Mono',monospace;font-weight:700}.scoreline span{color:var(--muted);font-size:12px;font-weight:800}
+.titlebox{margin-top:14px;border:1px solid #5a4a1e;background:linear-gradient(160deg,#1a1408,#0a0f18 80%);border-radius:16px;padding:18px;text-align:center;display:none}.titlebox.show{display:block}.titlebox .trophy{font-size:38px}.titlebox h3{font-family:Anton,sans-serif;letter-spacing:.5px;text-transform:uppercase;font-size:24px;color:var(--gold);margin-top:6px}.titlebox p{color:var(--muted);font-size:12px;font-weight:700;margin-top:4px}
+@media(max-width:850px){.grid{grid-template-columns:1fr}.scenario{grid-template-columns:1fr}.round{grid-template-columns:1fr}.mini{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>Colombia <span class="green">Championship Simulator</span></h1>
+    <div class="sub">Group stage complete. Colombia won Group K outright (7 pts) with a scoreless draw vs Portugal. Confirmed Round of 32 fixture: Colombia vs Ghana, July 3, Arrowhead Stadium, Kansas City.</div>
+    <div class="pillrow">
+      <span class="pill good">Group K winner — through to Round of 32</span>
+      <span class="pill gold">Confirmed opponent: Ghana</span>
+      <span class="pill warn">Win 5 straight knockout games to lift the trophy</span>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Final Group K Table</h2>
+      <div class="mini">
+        <div class="box win"><div class="l">Colombia</div><div class="v">7 pts</div></div>
+        <div class="box"><div class="l">Portugal</div><div class="v">5 pts</div></div>
+        <div class="box"><div class="l">DR Congo</div><div class="v">4 pts</div></div>
+        <div class="box"><div class="l">Uzbekistan</div><div class="v">0 pts</div></div>
+      </div>
+      <table style="margin-top:12px">
+        <tr><th>Team</th><th>P</th><th>GD</th><th>Pts</th><th>Finish</th></tr>
+        <tr><td><span class="team"><span class="flag">🇨🇴</span>Colombia</span></td><td>3</td><td>+2</td><td class="pts">7</td><td>1st ✓</td></tr>
+        <tr><td><span class="team"><span class="flag">🇵🇹</span>Portugal</span></td><td>3</td><td>+5</td><td class="pts">5</td><td>2nd ✓</td></tr>
+        <tr><td><span class="team"><span class="flag">🇨🇩</span>DR Congo</span></td><td>3</td><td>-1</td><td class="pts">4</td><td>Best 3rd ✓</td></tr>
+        <tr><td><span class="team"><span class="flag">🇺🇿</span>Uzbekistan</span></td><td>3</td><td>-6</td><td class="pts">0</td><td>Eliminated</td></tr>
+      </table>
+      <p class="note"><b>Final result:</b> Colombia 0–0 Portugal in Miami sealed top spot outright. DR Congo beat Uzbekistan 3–1 to finish third and went on to qualify as one of the eight best third-placed teams, reaching the knockouts for the first time in their history.</p>
+      <p class="note" style="margin-top:14px"><b>Official Round of 32 slot:</b> per FIFA's regulations, the Group K winner faces a third-placed team from Group D, E, I, J, or L. That slot resolved to <b>Ghana</b> (3rd in Group L, who lost the runner-up spot to Croatia by a single result on the final matchday).</p>
+    </section>
+
+    <section class="card">
+      <h2>Colombia's Path to the Final</h2>
+      <div class="path" id="path"></div>
+      <div class="resultbox" id="statusBox" style="margin-top:14px"></div>
+      <div class="titlebox" id="titleBox">
+        <div class="trophy">🏆</div>
+        <h3>Campeones del Mundo</h3>
+        <p>Colombia wins the 2026 FIFA World Cup</p>
+      </div>
+      <p class="note">Click <b>Colombia win</b> or <b>Opponent win</b> on any unlocked match to simulate the result and reveal the next round. The Round of 32 (vs Ghana) and the bracket route through the Round of 16 (Match 96: Switzerland/Algeria vs Colombia/Ghana) are both confirmed and locked per FIFA's official fixture list. The Quarter-final opponent depends on Match 95 (Argentina/Cape Verde vs Australia/Egypt) — use the dropdown to pick which side you think survives that match.</p>
+    </section>
+  </div>
+</div>
+
+<script>
+const FLAGS={Colombia:'🇨🇴',Ghana:'🇬🇭',Switzerland:'🇨🇭',Algeria:'🇩🇿',Portugal:'🇵🇹',Croatia:'🇭🇷',France:'🇫🇷',Senegal:'🇸🇳',Norway:'🇳🇴','Ivory Coast':'🇨🇮',Belgium:'🇧🇪',Spain:'🇪🇸',Brazil:'🇧🇷',Japan:'🇯🇵',Morocco:'🇲🇦',Netherlands:'🇳🇱',Germany:'🇩🇪',Argentina:'🇦🇷','Cape Verde':'🇨🇻',Australia:'🇦🇺',Egypt:'🇪🇬'};
+function flag(t){return FLAGS[t]||'⚽'}
+
+/* ---- Real, confirmed bracket data on Colombia's side of the draw ----
+   R32: Colombia(1K) vs Ghana(3L) — CONFIRMED, locked, July 3 Kansas City
+   R32 (paired match): Switzerland(1B) vs Algeria(3J) — CONFIRMED, July 2 Vancouver
+   Winner of [Colombia/Ghana] meets winner of [Switzerland/Algeria] in the R16
+   (this is Match 96, per FIFA's official fixture list).
+   Beyond R16, Colombia's exact opponent depends on results across an
+   entire quarter of the draw that hasn't been played yet, so those slots
+   show the two realistic possibilities rather than a single guess. */
+const R32_OPP = {name:'Ghana', venue:'Arrowhead Stadium, Kansas City', date:'Fri, July 3'};
+const R32_PAIR = {a:'Switzerland', b:'Algeria', venue:'BC Place, Vancouver', date:'Thu, July 2'};
+
+/* R16 (Match 96): Switzerland/Algeria vs Colombia/Ghana — Vancouver, July 7.
+   QF onward — Colombia's quarter of the draw, both realistic branches
+   grounded in the actual confirmed Round of 32 matchups feeding into it:
+   the other R16 match in this quarter is Match 95, Argentina/Cape Verde vs
+   Australia/Egypt (Atlanta, July 7), so Colombia's QF opponent is whichever
+   side survives that match. */
+const QF_BRANCH = {
+  options: ['Argentina or Cape Verde, then Australia or Egypt']
+};
+
+let state={
+  r32:null,        // 'colombia' | 'opp'
+  r32pair:null,    // 'a' | 'b'  (which of Switzerland/Algeria wins)
+  r16:null,
+  qf:null,
+  sf:null,
+  final:null,
+  finalOpp:'TBD'
+};
+
+function matchHTML(round,dateLabel,venue,leftConfirmed,left,rightConfirmed,right,id,locked,resolved,winnerSide){
+  const lockedCls = locked ? ' locked' : '';
+  const leftBadge = leftConfirmed ? '<span class="confirmed">Confirmed</span>' : '';
+  const rightBadge = rightConfirmed ? '<span class="confirmed">Confirmed</span>' : '';
+  let body;
+  if(resolved){
+    body = `<div class="teams">
+      <span class="${winnerSide==='left'?'col':''}">${flag(left)} ${left}</span>${leftBadge}
+      <span class="vs">def.</span>
+      <span class="${winnerSide==='right'?'col':''}">${flag(right)} ${right}</span>${rightBadge}
+    </div>`;
+  } else {
+    body = `<div class="teams">${flag(left)} ${left}${leftBadge}<span class="vs">vs</span>${flag(right)} ${right}${rightBadge}</div>
+    <div class="scenario" style="grid-template-columns:1fr 1fr">
+      <button class="btn" data-pick="${id}" data-side="left">${left} win</button>
+      <button class="btn" data-pick="${id}" data-side="right">${right} win</button>
+    </div>`;
+  }
+  return `<div class="round"><div class="rlabel">${round}<span class="date">${dateLabel}</span></div>
+    <div class="match${lockedCls}"><div class="small"><span>${venue?'':''}</span><span class="venue">${venue||''}</span></div>${body}</div></div>`;
+}
+
+function render(){
+  let html='';
+
+  // --- R32: confirmed, locked fixture ---
+  const r32Resolved = state.r32!==null;
+  const r32Winner = state.r32==='colombia' ? 'Colombia' : (state.r32==='opp'?R32_OPP.name:null);
+  html += matchHTML('Round of 32', R32_OPP.date, R32_OPP.venue, true, 'Colombia', true, R32_OPP.name, 'r32', false, r32Resolved, state.r32==='colombia'?'left':(state.r32==='opp'?'right':null));
+
+  if(!r32Resolved){ document.getElementById('path').innerHTML=html; finishStatus(); return; }
+
+  if(state.r32==='opp'){
+    document.getElementById('path').innerHTML = html + `<div class="resultbox"><b>Colombia are eliminated</b> in the Round of 32 by ${R32_OPP.name}.</div>`;
+    finishStatus(true);
+    return;
+  }
+
+  // --- Paired R32 match (Switzerland vs Algeria) feeding the R16 opponent ---
+  const pairResolved = state.r32pair!==null;
+  const pairWinner = state.r32pair==='a'?R32_PAIR.a:(state.r32pair==='b'?R32_PAIR.b:null);
+  html += matchHTML('Round of 32', R32_PAIR.date, R32_PAIR.venue, true, R32_PAIR.a, true, R32_PAIR.b, 'r32pair', false, pairResolved, state.r32pair==='a'?'left':(state.r32pair==='b'?'right':null));
+
+  if(!pairResolved){ document.getElementById('path').innerHTML=html; finishStatus(); return; }
+
+  // --- R16 ---
+  const r16Resolved = state.r16!==null;
+  const r16Winner = state.r16==='colombia' ? 'Colombia' : (state.r16==='opp'?pairWinner:null);
+  html += matchHTML('Round of 16', 'Tue, July 7', 'BC Place, Vancouver (Match 96)', false, 'Colombia', true, pairWinner, 'r16', false, r16Resolved, state.r16==='colombia'?'left':(state.r16==='opp'?'right':null));
+
+  if(!r16Resolved){ document.getElementById('path').innerHTML=html; finishStatus(); return; }
+  if(state.r16==='opp'){
+    document.getElementById('path').innerHTML = html + `<div class="resultbox"><b>Colombia are eliminated</b> in the Round of 16 by ${pairWinner}.</div>`;
+    finishStatus(true);
+    return;
+  }
+
+  // --- QF onward: genuinely undecided this far out, so present the two realistic branches ---
+  const qfOpp = QF_BRANCH.options[0];
+  html += `<div class="round"><div class="rlabel">Quarter-final<span class="date">Sat, July 11</span></div>
+    <div class="match"><div class="small"><span class="venue">Arrowhead Stadium, Kansas City (projected)</span></div>
+    <div class="teams">${flag('Colombia')} Colombia<span class="vs">vs</span>⚽ Projected opponent</div>
+    <select id="qfSel">
+      <option ${state.qfOpp==='a'||!state.qfOpp?'selected':''} value="a">Argentina or Cape Verde survivor</option>
+      <option ${state.qfOpp==='b'?'selected':''} value="b">Australia or Egypt survivor</option>
+    </select>
+    <div class="scenario" style="grid-template-columns:1fr 1fr;margin-top:8px">
+      <button class="btn" data-pick="qf" data-side="left">Colombia win</button>
+      <button class="btn" data-pick="qf" data-side="right">Opponent win</button>
+    </div></div></div>`;
+
+  if(state.qf===null){ document.getElementById('path').innerHTML=html; finishStatus(); return; }
+  if(state.qf==='opp'){
+    document.getElementById('path').innerHTML = html + `<div class="resultbox"><b>Colombia are eliminated</b> in the Quarter-final.</div>`;
+    finishStatus(true);
+    return;
+  }
+
+  // --- SF ---
+  html += `<div class="round"><div class="rlabel">Semi-final<span class="date">Mon–Tue, July 13–14</span><span class="date">MetLife Stadium, NJ</span></div>
+    <div class="match"><div class="teams">${flag('Colombia')} Colombia<span class="vs">vs</span>⚽ Semi-final opponent</div>
+    <div class="scenario" style="grid-template-columns:1fr 1fr;margin-top:8px">
+      <button class="btn" data-pick="sf" data-side="left">Colombia win</button>
+      <button class="btn" data-pick="sf" data-side="right">Opponent win</button>
+    </div></div></div>`;
+  if(state.sf===null){ document.getElementById('path').innerHTML=html; finishStatus(); return; }
+  if(state.sf==='opp'){
+    document.getElementById('path').innerHTML = html + `<div class="resultbox"><b>Colombia are eliminated</b> in the Semi-final. They'll contest the third-place playoff (July 18).</div>`;
+    finishStatus(true);
+    return;
+  }
+
+  // --- Final ---
+  html += `<div class="round"><div class="rlabel">FINAL<span class="date">Sun, July 19</span><span class="date">MetLife Stadium, NJ</span></div>
+    <div class="match"><div class="teams">${flag('Colombia')} Colombia<span class="vs">vs</span>⚽ Final opponent</div>
+    <div class="scenario" style="grid-template-columns:1fr 1fr;margin-top:8px">
+      <button class="btn" data-pick="final" data-side="left">Colombia win — 🏆</button>
+      <button class="btn" data-pick="final" data-side="right">Opponent win</button>
+    </div></div></div>`;
+  document.getElementById('path').innerHTML=html;
+
+  if(state.final===null){ finishStatus(); return; }
+  if(state.final==='opp'){
+    finishStatus(true,false,true);
+    return;
+  }
+  finishStatus(false,true);
+}
+
+function finishStatus(eliminated,champion,runnerUp){
+  const box=document.getElementById('statusBox');
+  const trophyBox=document.getElementById('titleBox');
+  trophyBox.classList.toggle('show',!!champion);
+  if(champion){box.innerHTML='';return;}
+  if(eliminated && runnerUp){box.innerHTML='<b>Runner-up.</b> Colombia reach the World Cup final but fall just short of the title.';return;}
+  if(eliminated){box.innerHTML='';return;}
+  box.innerHTML='<b>Live simulation in progress.</b> Click a result above to advance Colombia to the next round.';
+}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.btn[data-pick]');
+  if(!b)return;
+  const id=b.dataset.pick, side=b.dataset.side;
+  if(id==='r32') state.r32 = side==='left' ? 'colombia' : 'opp';
+  else if(id==='r32pair') state.r32pair = side==='left' ? 'a' : 'b';
+  else if(id==='r16') state.r16 = side==='left' ? 'colombia' : 'opp';
+  else if(id==='qf') state.qf = side==='left' ? 'colombia' : 'opp';
+  else if(id==='sf') state.sf = side==='left' ? 'colombia' : 'opp';
+  else if(id==='final') state.final = side==='left' ? 'colombia' : 'opp';
+  render();
+});
+document.addEventListener('change',e=>{
+  if(e.target.id==='qfSel'){ state.qfOpp = e.target.value; }
+});
+
+render();
+</script>
+</body>
+</html>
